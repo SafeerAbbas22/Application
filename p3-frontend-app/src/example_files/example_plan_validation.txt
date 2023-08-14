@@ -1,0 +1,3 @@
+Plan executed successfully - checking goal
+Plan valid
+Final value: 1 

@@ -1,0 +1,16 @@
+{
+  "API_GATEWAY": {
+    "PROTOCOL": "http",
+    "IP": "localhost",
+    "PORT": "8080",
+    "ADDRESS": "http://localhost:8080"
+  },
+  "ROUTE": {
+    "PDDL_DOMAIN_PROBLEM_MODELER": "/api/p3-pddl-domain-problem-modeler",
+    "PDDL_DOMAIN_VALIDATOR": "/api/p3-pddl-domain-validator",
+    "PDDL_PROBLEM_VALIDATOR": "/api/p3-pddl-problem-validator",
+    "PDDL_PLAN_SOLVER": "/api/p3-pddl-plan-solver",
+    "PDDL_PLAN_VALIDATOR": "/api/p3-pddl-plan-validator",
+    "HDDL_PLAN_SOLVER": "/api/p3-hddl-plan-solver"
+  }
+}
