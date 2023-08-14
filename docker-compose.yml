@@ -1,0 +1,117 @@
+# Location: put this file directly before the directories of the listed services:
+#   - p3-frontend-app
+#   - p3-service-discovery
+#   - p3-api-gateway
+#   - p3-pddl-domain-problem-modeler
+#   - p3-pddl-domain-problem-validator
+#   - p3-pddl-plan-solver
+#   - p3-pddl-plan-validator
+#   - p3-hddl-plan-solver
+#
+# Commands:
+#   - Create Docker images and run Docker containers:
+#       $ docker-compose up
+#   - Stop Docker containers:
+#       $ docker-compose stop
+#   - Delete Docker containers:
+#       $ docker-compose down
+
+
+
+version: "3.9"
+
+services:
+    p3-frontend-app:
+        container_name: p3-frontend-app
+        build:
+            context: p3-frontend-app
+            dockerfile: Dockerfile
+        image: p3-frontend-app:${TAG:-latest}
+        ports:
+            - "3000:3000"
+        networks:
+            - services-network
+
+    p3-service-discovery:
+        container_name: p3-service-discovery
+        build:
+            context: p3-service-discovery
+            dockerfile: Dockerfile
+        image: p3-service-discovery:${TAG:-latest}
+        ports:
+            - "8761:8761"
+        networks:
+            - services-network
+
+    p3-api-gateway:
+        container_name: p3-api-gateway
+        depends_on:
+            - p3-service-discovery
+        build:
+            context: p3-api-gateway
+            dockerfile: Dockerfile
+        image: p3-api-gateway:${TAG:-latest}
+        ports:
+            - "8080:8080"
+        networks:
+            - services-network
+
+    p3-pddl-domain-problem-modeler:
+        container_name: p3-pddl-domain-problem-modeler
+        depends_on:
+            - p3-service-discovery
+        build:
+            context: p3-pddl-domain-problem-modeler
+            dockerfile: Dockerfile
+        image: p3-pddl-domain-problem-modeler:${TAG:-latest}
+        networks:
+            - services-network
+
+    p3-pddl-domain-problem-validator:
+        container_name: p3-pddl-domain-problem-validator
+        depends_on:
+            - p3-service-discovery
+        build:
+            context: p3-pddl-domain-problem-validator
+            dockerfile: Dockerfile
+        image: p3-pddl-domain-problem-validator:${TAG:-latest}
+        networks:
+            - services-network
+
+    p3-pddl-plan-solver:
+        container_name: p3-pddl-plan-solver
+        depends_on:
+            - p3-service-discovery
+        build:
+            context: p3-pddl-plan-solver
+            dockerfile: Dockerfile
+        image: p3-pddl-plan-solver:${TAG:-latest}
+        networks:
+            - services-network
+
+    p3-pddl-plan-validator:
+        container_name: p3-pddl-plan-validator
+        depends_on:
+            - p3-service-discovery
+        build:
+            context: p3-pddl-plan-validator
+            dockerfile: Dockerfile
+        image: p3-pddl-plan-validator:${TAG:-latest}
+        networks:
+            - services-network
+
+    p3-hddl-plan-solver:
+        container_name: p3-hddl-plan-solver
+        depends_on:
+            - p3-service-discovery
+        build:
+            context: p3-hddl-plan-solver
+            dockerfile: Dockerfile
+        image: p3-hddl-plan-solver:${TAG:-latest}
+        networks:
+            - services-network
+
+networks:
+    services-network:
+        name: services-network
+        driver: bridge
